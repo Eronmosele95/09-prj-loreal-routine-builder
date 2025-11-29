@@ -25,6 +25,25 @@
 
       <!-- Category Filter -->
       <div class="search-section">
+        <div class="search-input-wrap">
+          <label for="productSearch" class="visually-hidden"
+            >Search products</label
+          >
+          <input
+            id="productSearch"
+            type="search"
+            placeholder="Search products by name or keyword…"
+            autocomplete="off"
+          />
+          <button
+            id="clearSearch"
+            class="clear-search-btn hidden"
+            type="button"
+            aria-label="Clear search"
+          >
+            ×
+          </button>
+        </div>
         <select id="categoryFilter">
           <option value="" disabled selected>Choose a Category</option>
           <option value="cleanser">Cleansers</option>
@@ -71,6 +90,26 @@
             <span class="visually-hidden">Send</span>
           </button>
         </form>
+        <div class="chat-hint" aria-hidden="false">
+          <strong>Tip:</strong> Ask about the generated routine or related
+          topics.
+          <div class="chat-examples">
+            Examples: <span class="example">"Can I use these at night?"</span>
+            <span class="example">"Which product first?"</span>
+            <span class="example">"Is it safe with retinol?"</span>
+          </div>
+        </div>
+        <div class="chat-options">
+          <label class="option-label"
+            ><input type="checkbox" id="enableWebSearch" /> Enable live web
+            search</label
+          >
+        </div>
+        <div class="chat-controls">
+          <button id="clearConversationBtn" class="clear-btn" type="button">
+            Clear Conversation
+          </button>
+        </div>
       </section>
 
       <!------- Footer Links ------->

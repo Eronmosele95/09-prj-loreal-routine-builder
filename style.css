@@ -40,10 +40,12 @@ body {
 .search-section {
   margin: 30px 0;
   display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .search-section select {
-  width: 100%;
+  flex: 1 1 auto;
   padding: 16px;
   font-size: 18px;
   border: 2px solid #000;
@@ -56,6 +58,53 @@ body {
 .search-section select:focus {
   outline: none;
   border-color: #666;
+}
+
+/* Search input for product filtering */
+#productSearch {
+  width: 320px;
+  max-width: 60%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+@media (max-width: 600px) {
+  #productSearch {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+/* wrapper around search input to contain clear button */
+.search-input-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input-wrap input#productSearch {
+  padding-right: 36px; /* make room for clear button */
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  padding: 4px 6px;
+}
+
+.clear-search-btn.hidden {
+  display: none;
 }
 
 /* chat section */
@@ -135,6 +184,72 @@ body {
   outline-offset: 2px;
 }
 
+/* chat hint under input */
+.chat-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #444;
+  background: #f8f9fb;
+  border: 1px solid #e6eef9;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.chat-hint .chat-examples {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.chat-hint .example {
+  background: #eef6ff;
+  color: #0052a3;
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+/* chat controls (clear button) */
+.chat-controls {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.clear-btn:hover,
+.clear-btn:focus {
+  background: #fff6f6;
+  border-color: #e07b7b;
+  outline: none;
+}
+
+/* chat options (web search toggle) */
+.chat-options {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option-label {
+  font-size: 13px;
+  color: #444;
+}
+.option-label input {
+  margin-right: 8px;
+}
+
 /* visually hidden */
 .visually-hidden {
   position: absolute;
@@ -186,6 +301,8 @@ body {
   display: flex;
   gap: 15px;
   min-height: 160px;
+  position: relative;
+  cursor: pointer;
 }
 
 .product-card img {
@@ -203,6 +320,44 @@ body {
   min-height: 110px;
 }
 
+/* description wrapper inside product card */
+.product-desc-wrapper {
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.product-desc {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.35;
+  max-height: 3.2em; /* roughly two lines */
+  overflow: hidden;
+}
+
+.product-desc.expanded {
+  max-height: 18em;
+}
+
+.desc-toggle {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: #0066cc;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.desc-toggle:hover,
+.desc-toggle:focus {
+  background: rgba(0, 102, 204, 0.06);
+  outline: none;
+}
+
 .product-card h3 {
   font-size: 16px;
   margin-bottom: 8px;
@@ -211,6 +366,68 @@ body {
 .product-card p {
   font-size: 14px;
   color: #666;
+}
+
+/* Selected card visuals */
+.product-card.selected {
+  border-color: #000;
+  background: #eaf3ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.product-card.selected::after {
+  content: "\2713";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #000;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+/* Selected products chips */
+.selected-chip {
+  background: #000;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.selected-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-chip .chip-name {
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selected-chip .remove-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+.selected-chip .remove-btn:hover,
+.selected-chip .remove-btn:focus {
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
 }
 
 /* selected products */
@@ -252,4 +469,145 @@ body {
 
 .generate-btn i {
   margin-right: 8px;
+}
+
+/* modal styles */
+.modal.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-panel {
+  position: relative;
+  background: #fff;
+  width: 90%;
+  max-width: 720px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  padding: 18px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.modal-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.modal-body h3 {
+  margin-top: 0;
+}
+
+.modal-body .modal-desc {
+  margin-top: 8px;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* —— RTL support —— */
+[dir="rtl"] body {
+  direction: rtl;
+}
+
+[dir="rtl"] .page-wrapper {
+  text-align: right;
+}
+
+/* flip search + category controls */
+[dir="rtl"] .search-section {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-input-wrap {
+  direction: rtl;
+}
+
+[dir="rtl"] .search-input-wrap input#productSearch {
+  padding-left: 36px; /* room for clear button on left in RTL */
+  padding-right: 12px;
+  text-align: right;
+}
+
+[dir="rtl"] .clear-search-btn {
+  right: auto;
+  left: 8px;
+}
+
+/* product cards: mirror the layout so image appears on the right */
+[dir="rtl"] .product-card {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .product-card h3,
+[dir="rtl"] .product-card p,
+[dir="rtl"] .product-desc {
+  text-align: right;
+}
+
+[dir="rtl"] .product-card.selected::after {
+  right: auto;
+  left: 8px;
+}
+
+/* modal content should mirror */
+[dir="rtl"] .modal-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-close {
+  right: auto;
+  left: 10px;
+}
+
+/* chatbox: align input and messages for RTL */
+[dir="rtl"] .chatbox,
+[dir="rtl"] .chat-window {
+  direction: rtl;
+}
+
+[dir="rtl"] .chat-form {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .chat-form input {
+  text-align: right;
+}
+
+[dir="rtl"] .selected-products {
+  text-align: right;
+}
+
+[dir="rtl"] #selectedProductsList {
+  justify-content: flex-end;
 }
